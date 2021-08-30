@@ -1,0 +1,15 @@
+.wrapper {
+  margin: 0 auto;
+  background-color: rgb(204, 71, 71);
+  // text-align: center;
+  width: 1200px;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
