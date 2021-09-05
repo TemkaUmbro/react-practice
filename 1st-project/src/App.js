@@ -1,9 +1,9 @@
 import React from 'react';
-import s from './App.module.scss';
+import style from './App.module.scss';
 
 const App = () => {
   return (
-    <div className={s.wrapper}>
+    <div className={style.wrapper}>
       hi
     </div>
   )
