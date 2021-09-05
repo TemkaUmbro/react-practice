@@ -1,0 +1,40 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1 {
+  text-align: center;
+}
+
+.App {
+  width: 800px;
+  margin: auto;
+}
+
+.post {
+  display: flex;
+  padding: 15px;
+  margin: 15px 0px;
+  border: 2px solid darkred;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post__content {
+  // display: flex;
+  // padding: 15px;
+  // border: 2px solid yellowgreen;
+  // justify-content: space-between;
+  // align-items: center;
+}
+
+// @keyframes App-logo-spin {
+//   from {
+//     transform: rotate(0deg);
+//   }
+//   to {
+//     transform: rotate(360deg);
+//   }
+// }
