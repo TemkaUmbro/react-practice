@@ -1,45 +1,58 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import Counter from './Components/Counter';
 import ClassCounter from './Components/ClassCounter';
 import style from './styles/App.module.scss'
 import PostList from './Components/PostList';
 import { MyButton } from './Components/UI/MyButton/MyButton';
 import { MyInput } from './Components/UI/MyInput/MyInput';
+import { PostForm } from './Components/PostForm';
+import { MySelect } from './Components/UI/Select/MySelect';
+import { PostFilter } from './Components/PostFilter';
+import MyModal from './MyModal/MyModal';
 
 const App = () => {
   const [posts, setPosts] = useState([
-    {id: 1, title: 'JS', body: 'JavaScript 1 - язык программирования'},
-    {id: 2, title: 'JS', body: 'JavaScript 2 - язык программирования'},
-    {id: 3, title: 'JS', body: 'JavaScript 3 - язык программирования'},
+    {id: 1, title: '222', body: '123 JavaScript - язык программирования'},
+    {id: 2, title: '111', body: '456 JavaScript - язык программирования'},
+    {id: 3, title: '44', body: '07890 JavaScript - язык программирования'},
   ]);
-
-  const [post, setPost] = useState({
-    title: '',
-    body: '',
+  
+  const [modal, setModal] = useState(false);
+  const [filter, setFilter] = useState({
+    sort: '',
+    query: '',
   });
 
-  const addNewPost = (e) => {
-    e.preventDefault();
-    setPosts([...posts, {...post, id: Date.now()}]);
-    setPost({ title:'', body:'' })
-  }
+  const sortedPosts = useMemo(() => {
+    if(filter.sort) {
+      return [...posts].sort((a, b) => a[filter.sort].localeCompare(b[filter.sort]))
+    }
+    return posts
+  }, [filter.sort, posts]);
+
+  const sortedAndSearchedPosts = useMemo(() => {
+    return sortedPosts.filter(post => post.title.toLowerCase().includes(filter.query.toLowerCase()))
+  }, [filter.query, sortedPosts]);
+
+  const createPost = (newPost) => {
+    setPosts([...posts, newPost]);
+    setModal(false);
+  };
+
+  const removePost = (post) => {
+    setPosts(posts.filter(el => el.id !== post.id));
+  };
 
   return (
     <div className={style.App}>
-      <form>
-        <MyInput
-          value={post.title}
-          onChange={e => setPost({ ...post, title: e.target.value})}
-          type='text'
-          placeholder='Название поста' />
-        <MyInput
-          value={post.body}
-          onChange={e => setPost({ ...post, body: e.target.value})}
-          type='text'
-          placeholder='Описание поста' />
-        <MyButton onClick={addNewPost}>Создать пост</MyButton>
-      </form>
-        <PostList posts={posts} title='Cписок постов' />
+      <MyButton onClick={() => setModal(true)}>
+        Создать пользователя
+      </MyButton>
+      <MyModal visible={modal} setVisible={setModal}>
+        <PostForm create={createPost} />
+      </MyModal>
+      <PostFilter filter={filter} setFilter={setFilter}/>
+      <PostList remove={removePost} posts={sortedAndSearchedPosts} title='Посты про JS'/>
     </div>
   )
 }
