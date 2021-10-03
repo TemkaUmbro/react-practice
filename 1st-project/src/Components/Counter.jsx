@@ -11,7 +11,7 @@ const Counter = () => {
     const decrement = () => {
         setCounter(counter - 1)
     }
-    
+
     return (
         <>
             <div>{counter}</div>
