@@ -1,21 +1,14 @@
 import React from 'react';
-import { BrowserRouter, Route  } from 'react-router-dom';
-import About from './pages/About';
-import Posts from './pages/Posts';
+import { BrowserRouter } from 'react-router-dom';
+import Navbar from './Components/UI/Navbar/Navbar';
+import AppRouter from './Components/UI/AppRouter/AppRouter';
 
 const App = () => {
   return (
-    <BrowserRouter>
-      <Route path='/about'>
-        <About />
-      </Route>
-      <Route path='/posts'>
-        <Posts />
-      </Route>
+    <BrowserRouter >
+      <Navbar />
+      <AppRouter />
     </BrowserRouter>
-    // <Switch>
-
-    // </Switch>
   )
 }
 

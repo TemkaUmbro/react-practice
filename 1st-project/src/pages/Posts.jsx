@@ -1,12 +1,12 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import style from './Posts.module.scss';
+import React, { useEffect, useState } from 'react';
+import style from '../styles/App.module.scss';
 import PostList from '../Components/PostList';
 import { MyButton } from '../Components/UI/MyButton/MyButton';
 import { PostForm } from '../Components/PostForm';
 import { PostFilter } from '../Components/PostFilter';
 import MyModal from '../Components/UI/MyModal/MyModal';
 import { usePosts } from '../Components/hooks/usePosts';
-import PostsServise from '../API/PostServise';
+import PostsService from '../API/PostServise';
 import { Loader } from '../Components/UI/Loader/Loader';
 import { useFetching } from '../Components/hooks/useFetching';
 import { getPageCount } from '../utils/pages';
@@ -22,7 +22,7 @@ const Posts = () => {
   const [page, setPage] = useState(1);
   const sortedAndSearchedPosts = usePosts(posts, filter.sort, filter.query);  
   const [fetchPosts, isPostsLoading, postError] = useFetching( async () => {
-    const response = await PostsServise.getAll(limit, page);
+    const response = await PostsService.getAll(limit, page);
     setPosts(response.data);
     const totalCount = response.headers['x-total-count'];
     setTotalPages(getPageCount(totalCount, limit));
